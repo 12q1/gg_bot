@@ -8,6 +8,7 @@ const client = new Discord.Client();
 const prefix = "!";
 const token = process.env.TOKEN;
 const giphykey = process.env.GIPHYKEY;
+const omdbkey = process.env.OMDBKEY;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -27,7 +28,7 @@ client.on('message', message => {
     }
     else if (command === 'help') {
         message.channel.send(
-            "!8ball - returns a magic 8ball answer\n !bible - gets a random bible verse\n !joke - gets a random dad joke\n !wiki - search wikipedia\n !gif - search for a gif\n"
+            "**!8ball** - gets a magic 8ball answer\n**!bible** - gets a random bible verse\n**!gif** - search for a gif\n**!imdb** search imdb\n**!insult** - gets a random insult\n**!joke** - gets a random dad joke\n**!remind** - sets a reminder for x minutes\n**!wiki** - search wikipedia"
         )
     }
     else if (command === 'bible') { //gets a random bible verse
@@ -126,7 +127,7 @@ client.on('message', message => {
                 .catch(error => console.log(error))
         }
     }
-    else if (command === 'remind') {
+    else if (command === 'remind') { //reminds user of a message, first argument is the number of minutes
         if (!args.length) {
             message.channel.send("You didn't provide any arguments")
         }
@@ -137,6 +138,18 @@ client.on('message', message => {
             setTimeout(() => {
                 message.channel.send(`${args.join(" ")}`)
             }, 60000 * minutes)
+        }
+    }
+    else if (command === 'imdb' || command === 'movie') { //returns a imdb page and some ratings information
+        if (!args.length) {
+            message.channel.send("You didn't provide any arguments")
+        }
+        else {
+            const url = `http://www.omdbapi.com/?t=${args.join("+")}&apikey=${omdbkey}`;
+            superagent
+                .get(url)
+                .then(res => message.channel.send(`**${res.body.Title}**: https://www.imdb.com/title/${res.body.imdbID} \n**Metascore:** ${res.body.Metascore}\n**IMDB:** ${res.body.imdbRating}\n**Rotten Tomatoes:** ${res.body.Ratings[1].Value}`))
+                .catch(error => console.log(error))
         }
     }
 });
