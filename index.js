@@ -152,6 +152,17 @@ client.on('message', message => {
                 .catch(error => console.log(error))
         }
     }
+    else if (command === 'squad') { //gets a list of populated squad servers in EU region
+        superagent
+            .get('https://api.battlemetrics.com/servers?filter[game]=squad&filter[players][min]=50&location=52.3676%2C4.9041&filter[maxDistance]=3000&sort=rank&page[size]=20')
+            .then(res => {
+                const serverList = res.body.data.map(server =>{
+                    return `[${server.attributes.country}] - ${server.attributes.name.replace('.gg','')} - (${server.attributes.players}/${server.attributes.maxPlayers})\n`
+                })
+                message.channel.send(serverList.join(''))
+            })
+            .catch(error => console.log(error))
+    }
 });
 
 client.login(token);
