@@ -5,6 +5,7 @@ const omdbkey = process.env.OMDBKEY;
 module.exports = {
     name: 'imdb',
     description: 'imdb',
+    aliases: ['movie'],
     execute(message, args) {
         if (!args.length) {
             message.channel.send("You didn't provide any arguments")
