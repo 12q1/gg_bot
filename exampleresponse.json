@@ -1,0 +1,538 @@
+{
+    "name": "[TLR] - The Last Rifles Gaming [EU/ENG]",
+    "map": "Fool's Road AAS v2",
+    "password": false,
+    "raw": {
+        "protocol": 17,
+        "folder": "squad",
+        "game": "Squad",
+        "steamappid": 0,
+        "numplayers": 101,
+        "numbots": 0,
+        "listentype": "d",
+        "environment": "w",
+        "secure": 0,
+        "version": "V1.1.0.173.39994",
+        "steamid": "90139717818897413",
+        "tags": "BUILDID:0,OWNINGID:90139717818897413,OWNINGNAME:[TLR] - The Last Rifles Gaming [EU/ENG],NUMOPENPRIVCONN:1,NUMOPENPUBCONN:0",
+        "gameid": "393380",
+        "rules": {
+            "AllModsWhitelisted_b": "false",
+            "CurrentModLoadedCount_i": "0",
+            "Flags_i": "7",
+            "GameMode_s": "AAS",
+            "GameVersion_s": "V1.1.0.173.39994",
+            "LicenseId_i": "991243",
+            "LicenseSig1_s": "SoyRP1FXQ7aoiyKR6AaqXNjN4HiLMh+Id07XAQngwYr7rXYXmQHET5qnyTFp49B1+yn5yH+CEA+LO7cDN6nwuJ8o2Og2uQHQvQTpfY4BxlVDA+8iughbgAwmfGGgDDW",
+            "LicenseSig2_s": "kpu9+FEfY+u5pxJhhcyRRF+2nj8IrCNbVabaFAE7B79gocqk0r79oVFcvDcfe7y2zbHWX8So5v7rOyHMTZ0JR31hMIYlpsP+ReU2fAU9UnP+n90H+zuwM7Y/rnCIIGq",
+            "LicenseSig3_s": "epWOCbShV0FKPdn1YQsfQFg+/J5RzwHGWjefqkR2IIIoylm4nhAp7p4EPzcaoxsY/9guKoFv2Sdtz31I1wPsZjSQ==",
+            "MatchTimeout_f": "120.000000",
+            "NUMOPENPRIVCONN": "1",
+            "NUMOPENPUBCONN": "0",
+            "NUMPRIVCONN": "1",
+            "NUMPUBCONN": "99",
+            "OWNINGID": "90139717818897413",
+            "OWNINGNAME": "[TLR] - The Last Rifles Gaming [EU/ENG]",
+            "P2PADDR": "90139717818897413",
+            "P2PPORT": "27020",
+            "Password_b": "false",
+            "PlayerCount_i": "99",
+            "PlayerReserveCount_i": "1",
+            "PublicQueueLimit_i": "-1",
+            "PublicQueue_i": "6",
+            "ReservedQueue_i": "0",
+            "SEARCHKEYWORDS_s": "Custom",
+            "SESSIONFLAGS": "171"
+        }
+    },
+    "maxplayers": 100,
+    "players": [
+        {
+            "name": "Tjlgamer2",
+            "score": 703,
+            "time": 24855.38671875
+        },
+        {
+            "name": "monkeyzed",
+            "score": 378,
+            "time": 20839.88671875
+        },
+        {
+            "name": "T.T",
+            "score": 794,
+            "time": 20070.6171875
+        },
+        {
+            "name": "Gandelfs Beard",
+            "score": 259,
+            "time": 17473.546875
+        },
+        {
+            "name": "Bearstrike",
+            "score": 1087,
+            "time": 16191.96875
+        },
+        {
+            "name": "Ameron",
+            "score": 628,
+            "time": 11805.134765625
+        },
+        {
+            "name": "a ditch elf",
+            "score": 1817,
+            "time": 11601.8486328125
+        },
+        {
+            "name": "C7Hx",
+            "score": 813,
+            "time": 11332.1650390625
+        },
+        {
+            "name": "Plix",
+            "score": 267,
+            "time": 9867.2177734375
+        },
+        {
+            "name": "Pygmy",
+            "score": 554,
+            "time": 8772.193359375
+        },
+        {
+            "name": "Hagmire84",
+            "score": 1281,
+            "time": 8277.16015625
+        },
+        {
+            "name": "joyceylove",
+            "score": 223,
+            "time": 8027.74365234375
+        },
+        {
+            "name": "WonkEyEDan",
+            "score": -8,
+            "time": 7269.68115234375
+        },
+        {
+            "name": "Baton",
+            "score": 350,
+            "time": 6729.51708984375
+        },
+        {
+            "name": "ZakPax",
+            "score": 399,
+            "time": 5667.6435546875
+        },
+        {
+            "name": "Gildy325",
+            "score": 121,
+            "time": 5341.5888671875
+        },
+        {
+            "name": "SantaMad",
+            "score": 463,
+            "time": 5198.51171875
+        },
+        {
+            "name": "MertGral",
+            "score": 981,
+            "time": 5165.333984375
+        },
+        {
+            "name": "Paadimees",
+            "score": 255,
+            "time": 5162.36279296875
+        },
+        {
+            "name": "Yasir-IQ",
+            "score": 389,
+            "time": 5150.5673828125
+        },
+        {
+            "name": "mhuxie",
+            "score": -5,
+            "time": 4895.59912109375
+        },
+        {
+            "name": "Will_Manf",
+            "score": 146,
+            "time": 4879.59375
+        },
+        {
+            "name": "Ritzzu",
+            "score": 345,
+            "time": 4649.59521484375
+        },
+        {
+            "name": "ChrisPNE",
+            "score": 128,
+            "time": 4641.5908203125
+        },
+        {
+            "name": "urine",
+            "score": 10,
+            "time": 4631.515625
+        },
+        {
+            "name": "feral",
+            "score": 350,
+            "time": 4604.61279296875
+        },
+        {
+            "name": "brianmcnally90",
+            "score": 1120,
+            "time": 4536.84228515625
+        },
+        {
+            "name": "INSTINCT",
+            "score": 17,
+            "time": 4526.533203125
+        },
+        {
+            "name": "pancakes",
+            "score": 619,
+            "time": 4509.42822265625
+        },
+        {
+            "name": "Phoenix92",
+            "score": 212,
+            "time": 4440.138671875
+        },
+        {
+            "name": "Kroko",
+            "score": 2830,
+            "time": 4432.365234375
+        },
+        {
+            "name": "setoqua",
+            "score": 368,
+            "time": 4375.48046875
+        },
+        {
+            "name": "Joezzzify",
+            "score": 224,
+            "time": 4370.57421875
+        },
+        {
+            "name": "Cyanine",
+            "score": 303,
+            "time": 4361.6513671875
+        },
+        {
+            "name": "Cappy",
+            "score": 58,
+            "time": 4358.5390625
+        },
+        {
+            "name": "[ELITE]javi[ESP]",
+            "score": 34,
+            "time": 4333.595703125
+        },
+        {
+            "name": "MagixTouch",
+            "score": 508,
+            "time": 4310.30322265625
+        },
+        {
+            "name": "Fürst von Butz",
+            "score": 923,
+            "time": 4199.6142578125
+        },
+        {
+            "name": "BumFluff",
+            "score": 102,
+            "time": 4138.7373046875
+        },
+        {
+            "name": "MAGICPANTS",
+            "score": 690,
+            "time": 4096.2734375
+        },
+        {
+            "name": "DizzyDwarf",
+            "score": 750,
+            "time": 3664.010009765625
+        },
+        {
+            "name": "bassl950",
+            "score": 449,
+            "time": 3653.326416015625
+        },
+        {
+            "name": "Jadmo97",
+            "score": 466,
+            "time": 3632.58544921875
+        },
+        {
+            "name": "John Louis Don Kiszot",
+            "score": 617,
+            "time": 3071.599609375
+        },
+        {
+            "name": "Warioks",
+            "score": 60,
+            "time": 2846.45947265625
+        },
+        {
+            "name": "I Punch Babies",
+            "score": 294,
+            "time": 2747.544189453125
+        },
+        {
+            "name": "Gante",
+            "score": 188,
+            "time": 2739.723388671875
+        },
+        {
+            "name": "Sgt. Hypeman",
+            "score": 295,
+            "time": 2663.515625
+        },
+        {
+            "name": "DaddyLongEggs",
+            "score": 484,
+            "time": 2439.47802734375
+        },
+        {
+            "name": "l1lReaper",
+            "score": 298,
+            "time": 2371.425048828125
+        },
+        {
+            "name": "✪ lorem",
+            "score": 690,
+            "time": 2355.209228515625
+        },
+        {
+            "name": "Actualghost65",
+            "score": 39,
+            "time": 2343.6064453125
+        },
+        {
+            "name": "Nafiel",
+            "score": 700,
+            "time": 2296.258544921875
+        },
+        {
+            "name": "boatmania515",
+            "score": 256,
+            "time": 2285.429931640625
+        },
+        {
+            "name": "BlackPwny¤",
+            "score": 390,
+            "time": 2218.7451171875
+        },
+        {
+            "name": "Chimmey_my_Changa",
+            "score": 4,
+            "time": 2210.21875
+        },
+        {
+            "name": "✪ Omerta",
+            "score": 141,
+            "time": 2183.292236328125
+        },
+        {
+            "name": "Feartheslickyuk",
+            "score": 153,
+            "time": 2179.391357421875
+        },
+        {
+            "name": "Protivnik",
+            "score": 698,
+            "time": 2154.38330078125
+        },
+        {
+            "name": "Vex",
+            "score": 94,
+            "time": 2107.119140625
+        },
+        {
+            "name": "NazNassa",
+            "score": 6,
+            "time": 2048.7451171875
+        },
+        {
+            "name": "Sicko808",
+            "score": 47,
+            "time": 1990.3377685546875
+        },
+        {
+            "name": "Kim Jun Un",
+            "score": 1314,
+            "time": 1965.797607421875
+        },
+        {
+            "name": "Rusty",
+            "score": 422,
+            "time": 1913.531005859375
+        },
+        {
+            "name": "KoTiK[UA]",
+            "score": 1579,
+            "time": 1908.3782958984375
+        },
+        {
+            "name": "shmakgmr",
+            "score": 63,
+            "time": 1727.7332763671875
+        },
+        {
+            "name": "Muffler",
+            "score": 22,
+            "time": 1705.966064453125
+        },
+        {
+            "name": "thirdhandjosh",
+            "score": 137,
+            "time": 1686.4384765625
+        },
+        {
+            "name": "Hamster KØBER / SÆLGER SKINS",
+            "score": 387,
+            "time": 1670.2982177734375
+        },
+        {
+            "name": "moecrazy579",
+            "score": 1337,
+            "time": 1614.07177734375
+        },
+        {
+            "name": "zotix",
+            "score": 753,
+            "time": 1611.646728515625
+        },
+        {
+            "name": "北京市委书记老季",
+            "score": 405,
+            "time": 1607.884521484375
+        },
+        {
+            "name": "DoloLinks",
+            "score": 75,
+            "time": 1585.1612548828125
+        },
+        {
+            "name": "Yo Mama :D",
+            "score": 356,
+            "time": 1574.6805419921875
+        },
+        {
+            "name": "deluxedrak",
+            "score": 17,
+            "time": 1526.759033203125
+        },
+        {
+            "name": "FarmerInTheDell",
+            "score": 641,
+            "time": 1522.123046875
+        },
+        {
+            "name": "Caldy",
+            "score": 110,
+            "time": 1203.1907958984375
+        },
+        {
+            "name": "A-z-K",
+            "score": 100,
+            "time": 1174.3074951171875
+        },
+        {
+            "name": "Cuttlas",
+            "score": 463,
+            "time": 1157.5224609375
+        },
+        {
+            "name": "Radojica",
+            "score": 131,
+            "time": 1075.1483154296875
+        },
+        {
+            "name": "Chebdaytona",
+            "score": 67,
+            "time": 954.1427612304688
+        },
+        {
+            "name": "Tough Puppy",
+            "score": 72,
+            "time": 845.6603393554688
+        },
+        {
+            "name": "IgnisCloud",
+            "score": 9,
+            "time": 761.9609375
+        },
+        {
+            "name": "Turd Ferguson",
+            "score": 28,
+            "time": 718.0355834960938
+        },
+        {
+            "name": "Rusty Shackleford",
+            "score": 20,
+            "time": 679.0435180664062
+        },
+        {
+            "name": "chivorock",
+            "score": 439,
+            "time": 663.1163940429688
+        },
+        {
+            "name": "Mcdo05",
+            "score": 9,
+            "time": 605.4788208007812
+        },
+        {
+            "name": "Garry_thegdberry",
+            "score": -2,
+            "time": 505.1595153808594
+        },
+        {
+            "name": "Brigitte L'huitre",
+            "score": 0,
+            "time": 483.6246032714844
+        },
+        {
+            "name": "Gaming_ Boi",
+            "score": 0,
+            "time": 466.8064270019531
+        },
+        {
+            "name": "Serge Aboubalim",
+            "score": 0,
+            "time": 441.4408264160156
+        },
+        {
+            "name": "josucodi",
+            "score": 0,
+            "time": 440.3940734863281
+        },
+        {
+            "name": "big ock",
+            "score": 129,
+            "time": 430.12322998046875
+        },
+        {
+            "name": "Napalm Tony",
+            "score": 0,
+            "time": 234.437744140625
+        },
+        {
+            "name": "Zero",
+            "score": 0,
+            "time": 159.39952087402344
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+    ],
+    "bots": [],
+    "connect": "185.38.149.109:27020",
+    "ping": 30,
+    "meta": {
+        "host": "https://api.xcausxn.com"
+    }
+}

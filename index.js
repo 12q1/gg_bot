@@ -1,14 +1,25 @@
+//refactor notes:
+//TODO move commands to separate modules
+//TODO switch from message.channel.send to embedded
+
 require('dotenv').config();
 //API keys and tokens are stored in the .env file
 
+//npm modules
 const Discord = require('discord.js');
 const superagent = require('superagent');
+
+//local modules
+const { convertMS } = require('./utils/time.js');
+
+
 const client = new Discord.Client();
 
 const prefix = "!";
 const token = process.env.TOKEN;
 const giphykey = process.env.GIPHYKEY;
 const omdbkey = process.env.OMDBKEY;
+const battleMetricsToken = process.env.BATTLEMETRICSTOKEN
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -80,6 +91,17 @@ client.on('message', message => {
         ]
         message.channel.send(outcomes[Math.floor(Math.random() * outcomes.length)])
     }
+    else if (command === 'diceroll' || command === 'dice') { //returns a random die face
+        const outcomes = [
+            "⚀",
+            "⚁",
+            "⚂",
+            "⚃",
+            "⚄",
+            "⚅"
+        ]
+        message.channel.send(outcomes[Math.floor(Math.random() * outcomes.length)])
+    }
     else if (command === 'joke') { //gets a random dad joke
         superagent
             .get('https://icanhazdadjoke.com/')
@@ -148,20 +170,44 @@ client.on('message', message => {
             const url = `http://www.omdbapi.com/?t=${args.join("+")}&apikey=${omdbkey}`;
             superagent
                 .get(url)
-                .then(res => message.channel.send(`**${res.body.Title}**: https://www.imdb.com/title/${res.body.imdbID} \n**Metascore:** ${res.body.Metascore}\n**IMDB:** ${res.body.imdbRating}\n**Rotten Tomatoes:** ${res.body.Ratings[1].Value}`))
+                .then(res => message.channel.send(`**${res.body.Title}:** https://www.imdb.com/title/${res.body.imdbID} \n**Metascore:** ${res.body.Metascore}\n**IMDB:** ${res.body.imdbRating}\n**Rotten Tomatoes:** ${res.body.Ratings[1].Value}`))
                 .catch(error => console.log(error))
         }
     }
-    else if (command === 'squad') { //gets a list of populated squad servers in EU region
-        superagent
-            .get('https://api.battlemetrics.com/servers?filter[game]=squad&filter[players][min]=50&location=52.3676%2C4.9041&filter[maxDistance]=3000&sort=rank&page[size]=20')
-            .then(res => {
-                const serverList = res.body.data.map(server =>{
-                    return `[${server.attributes.country}] - ${server.attributes.name.replace('.gg','')} - (${server.attributes.players}/${server.attributes.maxPlayers})\n`
+    else if (command === 'squad') {
+        if (!args.length) { //if there are no arguments we return a list of populated servers 3000km from Amsterdam
+            superagent
+                .get('https://api.battlemetrics.com/servers?filter[game]=squad&filter[players][min]=50&location=52.3676%2C4.9041&filter[maxDistance]=3000&sort=rank&page[size]=20')
+                .then(res => {
+                    const serverList = res.body.data.map(server => {
+                        return `[${server.attributes.country}] - ${server.attributes.name.replace('.gg', '')} - (${server.attributes.players}/${server.attributes.maxPlayers})\n`
+                    })
+                    message.channel.send(serverList.join(''))
                 })
-                message.channel.send(serverList.join(''))
-            })
-            .catch(error => console.log(error))
+                .catch(error => console.log(error))
+        }
+        else { //else we lookup the player on battlemetrics
+            const playerIDs = {
+                disannul: 726009583,
+                nato187: 142228847,
+                graybox: 910950113,
+                maddog: 0
+            }
+            superagent
+                .get(`https://api.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}/relationships/sessions`)
+                .set('Authorization', `Bearer ${battleMetricsToken}`)
+                .then(res => {
+                    const lastSeen = convertMS(Date.now() - Date.parse(res.body.data[0].attributes.stop))
+                    //need a second API call to retreive server name from server ID
+                    superagent
+                        .get(`https://api.battlemetrics.com/servers/${res.body.data[0].relationships.server.data.id}`)
+                        .then(response => {
+                            message.channel.send(`${args[0].charAt(0).toUpperCase() + args[0].slice(1)} was seen ${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago on ${response.body.data.attributes.name.replace('.gg', '')}`)
+                        })
+                        .catch(error => console.log(error))
+                })
+                .catch(error => console.log(error))
+        }
     }
 });
 
