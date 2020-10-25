@@ -16,18 +16,23 @@ module.exports = {
             superagent
                 .get(url)
                 .then(res => {
-                    const imdbEmbed = new Discord.MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle(`${res.body.Title} (${res.body.Year})`)
-                        .setImage(res.body.Poster)
-                        .setURL(`https://www.imdb.com/title/${res.body.imdbID}`)
-                        .addFields(
-                            { name: 'Plot', value: res.body.Plot },
-                            { name: 'Metascore', value: res.body.Metascore, inline: true},
-                            { name: 'IMDB Rating', value: res.body.imdbRating, inline: true},
-                            { name: 'Rotten Tomatoes', value: res.body.Ratings[1].Value, inline: true},
-                        )
-                    message.channel.send(imdbEmbed)
+                    if (res.body.response) {
+                        const imdbEmbed = new Discord.MessageEmbed()
+                            .setColor('#0099ff')
+                            .setTitle(`${res.body.Title} (${res.body.Year})`)
+                            .setImage(res.body.Poster)
+                            .setURL(`https://www.imdb.com/title/${res.body.imdbID}`)
+                            .addFields(
+                                { name: 'Plot', value: res.body.Plot },
+                                { name: 'Metascore', value: res.body.Metascore, inline: true },
+                                { name: 'IMDB Rating', value: res.body.imdbRating, inline: true },
+                                { name: 'Rotten Tomatoes', value: res.body.Ratings[1].Value, inline: true },
+                            )
+                        message.channel.send(imdbEmbed)
+                    }
+                    else {
+                        message.channel.send("I couldn't find that movie :/")
+                    }
                 })
                 .catch(error => console.log(error))
         }
