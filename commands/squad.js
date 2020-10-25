@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Discord = require('discord.js');
 const superagent = require('superagent');
 const battleMetricsToken = process.env.BATTLEMETRICSTOKEN
 const { convertMS } = require('../utils/time.js');
@@ -11,10 +12,14 @@ module.exports = {
             superagent
                 .get('https://api.battlemetrics.com/servers?filter[game]=squad&filter[players][min]=50&location=52.3676%2C4.9041&filter[maxDistance]=3000&sort=rank&page[size]=20')
                 .then(res => {
-                    const serverList = res.body.data.map(server => {
-                        return `[${server.attributes.country}] - ${server.attributes.name.replace('.gg', '')} - (${server.attributes.players}/${server.attributes.maxPlayers})\n`
+                    const serverListEmbed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setTitle('Squad Server List:')
+
+                    res.body.data.map(server => {
+                        serverListEmbed.addFields({name: `${server.attributes.name}`, value: `(${server.attributes.players}/${server.attributes.maxPlayers}) - Hosted in [${server.attributes.country}]`})
                     })
-                    message.channel.send(serverList.join(''))
+                    message.channel.send(serverListEmbed)
                 })
                 .catch(error => console.log(error))
         }
@@ -34,7 +39,15 @@ module.exports = {
                     superagent
                         .get(`https://api.battlemetrics.com/servers/${res.body.data[0].relationships.server.data.id}`)
                         .then(response => {
-                            message.channel.send(`${args[0].charAt(0).toUpperCase() + args[0].slice(1)} was seen ${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago on ${response.body.data.attributes.name.replace('.gg', '')}`)
+                            const playerEmbed = new Discord.MessageEmbed()
+                                .setColor('#0099ff')
+                                .setTitle(`${args[0].charAt(0).toUpperCase() + args[0].slice(1)}`)
+                                .setURL(`https://www.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}`)
+                                .addFields(
+                                    { name: 'Last Seen:', value: `${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago`},
+                                    { name: 'Server:', value: `${response.body.data.attributes.name}`}
+                                )
+                            message.channel.send(playerEmbed)
                         })
                         .catch(error => console.log(error))
                 })
