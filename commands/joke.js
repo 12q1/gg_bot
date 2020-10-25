@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const Discord = require('discord.js');
 
 module.exports = {
     name: 'joke',
@@ -7,7 +8,12 @@ module.exports = {
         superagent
             .get('https://icanhazdadjoke.com/')
             .set('Accept', 'text/plain')
-            .then(res => message.channel.send(res.text))
+            .then(res => {
+                const jokeEmbed = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setDescription(res.text)
+                message.channel.send(jokeEmbed)
+            })
             .catch(error => console.log(error))
     },
 };

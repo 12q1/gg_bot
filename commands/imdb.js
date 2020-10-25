@@ -21,9 +21,9 @@ module.exports = {
                             .setColor('#0099ff')
                             .setTitle(`${res.body.Title} (${res.body.Year})`)
                             .setImage(res.body.Poster)
+                            .setDescription(res.body.Plot)
                             .setURL(`https://www.imdb.com/title/${res.body.imdbID}`)
                             .addFields(
-                                { name: 'Plot:', value: res.body.Plot },
                                 { name: 'Metascore:', value: res.body.Metascore, inline: true },
                                 { name: 'IMDB Rating:', value: res.body.imdbRating, inline: true },
                                 { name: 'Rotten Tomatoes:', value: res.body.Ratings[1].Value, inline: true },

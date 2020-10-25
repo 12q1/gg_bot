@@ -1,3 +1,5 @@
+//TODO create dynamic help command https://discordjs.guide/command-handling/adding-features.html#a-dynamic-help-command
+
 module.exports = {
     name: 'help',
     description: 'Help',

@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const Discord = require('discord.js');
 
 module.exports = {
     name: 'bible',
@@ -8,7 +9,10 @@ module.exports = {
             .get('https://labs.bible.org/api/?passage=random')
             .then(res => {
                 let fixedText = res.text.split('</b>')
-                message.channel.send(fixedText[1] + "-" + fixedText[0].replace("<b>", " "))
+                const bibleEmbed = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setDescription(fixedText[1] + "-" + fixedText[0].replace("<b>", " "))
+                message.channel.send(bibleEmbed)
             })
             .catch(error => console.log(error))
     },
