@@ -31,7 +31,7 @@ module.exports = {
                         message.channel.send(imdbEmbed)
                     }
                     else {
-                        message.channel.send("I couldn't find that movie :/")
+                        message.channel.send("I couldn't find that movie")
                     }
                 })
                 .catch(error => console.log(error))

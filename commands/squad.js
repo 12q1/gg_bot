@@ -23,7 +23,7 @@ module.exports = {
                 disannul: 726009583,
                 nato187: 142228847,
                 graybox: 910950113,
-                maddog: 0
+                maddog: 726010844
             }
             superagent
                 .get(`https://api.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}/relationships/sessions`)
