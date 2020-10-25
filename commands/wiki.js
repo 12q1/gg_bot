@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const superagent = require('superagent');
 
 module.exports = {
@@ -7,36 +8,27 @@ module.exports = {
         if (!args.length) {
             return message.channel.send(`You didn't provide any search keywords ${message.author}!`);
         }
-        let url = `https://en.wikipedia.org/w/api.php`;
-
-        const params = {
-            action: "query",
-            srsearch: args.join(' '),
-            generator: "search",
-            srlimit: "3",
-            namespace: "0",
-            format: "json",
-            prop: "pageimage|extract",
-            exsentences: "3"
-        }
-
-        url = url + "?origin=*";
-        Object.keys(params).forEach(function (key) { url += "&" + key + "=" + params[key]; });
-
-        // superagent
-        //     .get(`https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrsearch=${args.join('%20')}&gsrlimit=1&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=3&exlimit=max`)
-        //     .then(res => {
-        //         return JSON.parse(res.text)
-        //     })
-        //     .then(res => console.log(res))
-        //TODO figure out a better way to pull extracts and images
-
         superagent
-            .get(url)
-            .then((res) => {
-                console.log(res.body)
-                message.channel.send(res.body[3][0])
+            .get(`https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrsearch=${args.join('%20')}&gsrlimit=1&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=3&exlimit=max&piprop=original`)
+            .then(res => {
+                return JSON.parse(res.text)
             })
-            .catch(error => console.log(error))
+            .then(res => {
+                const data = Object.values(res.query.pages)[0]
+                if (data.extract.includes(`may refer to:`)) {
+                    message.channel.send(`Your search terms were too vague ${message.author}`)
+                }
+                else {
+                    const wikiEmbed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setTitle(data.title)
+                        .setURL(`https://en.wikipedia.org/wiki/${data.title.replace(' ', '%20')}`)
+                        .setDescription(`${data.extract}..`)
+
+                    if (typeof(data.original) !== 'undefined') wikiEmbed.setImage(data.original.source)
+                    //if response has an image then set the image
+                    message.channel.send(wikiEmbed)
+                }
+            })
     },
 };
