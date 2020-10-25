@@ -8,7 +8,6 @@ const fs = require('fs');
 
 //npm modules
 const Discord = require('discord.js');
-const superagent = require('superagent');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
