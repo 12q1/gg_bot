@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const superagent = require('superagent');
+const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'wiki',
@@ -20,7 +21,7 @@ module.exports = {
                 }
                 else {
                     const wikiEmbed = new Discord.MessageEmbed()
-                        .setColor('#0099ff')
+                        .setColor(primaryColor)
                         .setTitle(data.title)
                         .setURL(`https://en.wikipedia.org/wiki/${data.title.replace(' ', '%20')}`)
                         .setDescription(`${data.extract}..`)

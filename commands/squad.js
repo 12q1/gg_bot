@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {battleMetrics} = require('../config.json')
+const { battleMetrics, primaryColor } = require('../config.json')
 const Discord = require('discord.js');
 const superagent = require('superagent');
 const battleMetricsToken = process.env.BATTLEMETRICSTOKEN
@@ -18,7 +18,7 @@ module.exports = {
                         .setTitle('Squad Server List:')
 
                     res.body.data.map(server => {
-                        serverListEmbed.addFields({name: `${server.attributes.name}`, value: `(${server.attributes.players}/${server.attributes.maxPlayers}) - Hosted in [${server.attributes.country}]`})
+                        serverListEmbed.addFields({ name: `${server.attributes.name}`, value: `(${server.attributes.players}/${server.attributes.maxPlayers}) - Hosted in [${server.attributes.country}]` })
                     })
                     message.channel.send(serverListEmbed)
                 })
@@ -36,12 +36,12 @@ module.exports = {
                         .get(`https://api.battlemetrics.com/servers/${res.body.data[0].relationships.server.data.id}`)
                         .then(response => {
                             const playerEmbed = new Discord.MessageEmbed()
-                                .setColor('#0099ff')
+                                .setColor(primaryColor)
                                 .setTitle(`${args[0].charAt(0).toUpperCase() + args[0].slice(1)}`)
                                 .setURL(`https://www.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}`)
                                 .addFields(
-                                    { name: 'Last Seen:', value: `${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago`},
-                                    { name: 'Server:', value: `${response.body.data.attributes.name}`}
+                                    { name: 'Last Seen:', value: `${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago` },
+                                    { name: 'Server:', value: `${response.body.data.attributes.name}` }
                                 )
                             message.channel.send(playerEmbed)
                         })

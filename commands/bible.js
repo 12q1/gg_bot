@@ -1,5 +1,6 @@
 const superagent = require('superagent');
 const Discord = require('discord.js');
+const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'bible',
@@ -10,7 +11,7 @@ module.exports = {
             .then(res => {
                 let fixedText = res.text.split('</b>')
                 const bibleEmbed = new Discord.MessageEmbed()
-                    .setColor('#0099ff')
+                    .setColor(primaryColor)
                     .setDescription(fixedText[1] + "-" + fixedText[0].replace("<b>", " "))
                 message.channel.send(bibleEmbed)
             })

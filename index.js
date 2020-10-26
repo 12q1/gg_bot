@@ -4,8 +4,6 @@ const token = process.env.TOKEN;
 //API keys and tokens are stored in the .env file use .env.example if you are setting up your own instance of this bot
 //Settings stored in config.json at root directory
 
-//refactor notes:
-//TODO switch from message.channel.send to embedded
 const fs = require('fs');
 
 //npm modules

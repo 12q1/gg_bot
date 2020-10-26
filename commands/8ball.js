@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: '8ball',
@@ -26,9 +27,9 @@ module.exports = {
             "Concentrate and ask again",
             "Cannot predict now"
         ]
-        
+
         const ballEmbded = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor(primaryColor)
             .setDescription(outcomes[Math.floor(Math.random() * outcomes.length)])
 
         message.channel.send(ballEmbded)

@@ -1,5 +1,6 @@
 {
     "prefix": "!",
+    "primaryColor" : "#0099ff",
     "battleMetrics": {
         "playerIDs": {
             "disannul": 726009583,

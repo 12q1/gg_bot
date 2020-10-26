@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { primaryColor } = require('../config.json')
 const Discord = require('discord.js');
 const superagent = require('superagent');
 const omdbkey = process.env.OMDBKEY;
@@ -18,7 +19,7 @@ module.exports = {
                 .then(res => {
                     if (res.body.Response === 'True') {
                         const imdbEmbed = new Discord.MessageEmbed()
-                            .setColor('#0099ff')
+                            .setColor(primaryColor)
                             .setTitle(`${res.body.Title} (${res.body.Year})`)
                             .setImage(res.body.Poster)
                             .setDescription(res.body.Plot)

@@ -1,5 +1,6 @@
 const superagent = require('superagent');
 const Discord = require('discord.js');
+const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'advice',
@@ -10,7 +11,7 @@ module.exports = {
             .then(res => {
                 const data =JSON.parse(res.text)
                 const adviceEmbed = new Discord.MessageEmbed()
-                    .setColor('#0099ff')
+                    .setColor(primaryColor)
                     .setDescription(data.slip.advice)
                 message.channel.send(adviceEmbed)
             })

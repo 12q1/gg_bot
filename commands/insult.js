@@ -1,12 +1,13 @@
 const superagent = require('superagent');
 const Discord = require('discord.js');
+const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'insult',
     description: 'Gets a randomly generated insult or returns an insult based on keywords.',
     execute(message, args) {
         const insultEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor(primaryColor)
         if (!args.length) { //if there are no keywords then we just get an insult directed at you
             superagent
                 .get('https://insult.mattbas.org/api/insult.txt')

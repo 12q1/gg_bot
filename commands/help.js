@@ -1,4 +1,4 @@
-const { prefix } = require('../config.json');
+const { prefix, primaryColor } = require('../config.json');
 const Discord = require('discord.js');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         if (!args.length) {
             data.push('Here\'s a list of all my commands:');
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor(primaryColor)
                 .setTitle('Commands')
 
             commands.map(command => {
