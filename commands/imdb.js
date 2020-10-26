@@ -2,7 +2,7 @@ const { primaryColor } = require('../config.json')
 const Discord = require('discord.js');
 const { omdbFetch } = require('../apicalls/omdb');
 const { tasteDiveFetch } = require('../apicalls/tastedive');
-const { trailerAddictFetch } = require('../apicalls/traileraddict');
+//const { trailerAddictFetch } = require('../apicalls/traileraddict');
 
 module.exports = {
     name: 'imdb',
@@ -20,7 +20,6 @@ module.exports = {
                     //trailerAddictFetch(args.join("-"))
                 ])
                 .then(res => {
-                    console.log(res[2])
                     const omdbData = res[0]
                     const tasteDiveData = res[1]
                     if(res[0].Response === 'False') return message.channel.send("I couldn't find that movie")
