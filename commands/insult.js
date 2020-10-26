@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'insult',
-    description: 'Insult',
+    description: 'Gets a randomly generated insult or returns an insult based on keywords.',
     execute(message, args) {
         const insultEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')

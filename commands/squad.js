@@ -7,7 +7,7 @@ const { convertMS } = require('../utils/time.js');
 
 module.exports = {
     name: 'squad',
-    description: 'squad',
+    description: 'Gets a list of Squad servers or searches for player info.',
     execute(message, args) {
         if (!args.length) { //if there are no arguments we return a list of populated servers 3000km from Amsterdam
             superagent

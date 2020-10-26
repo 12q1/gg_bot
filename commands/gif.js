@@ -4,7 +4,7 @@ const giphykey = process.env.GIPHYKEY;
 
 module.exports = {
     name: 'gif',
-    description: 'gif',
+    description: 'Gets a random gif or searches for a gif based on search keywords.',
     execute(message, args) {
         if (!args.length) { //if there are no keywords then we just get a random gif
             url = `https://api.giphy.com/v1/gifs/random?api_key=${giphykey}&tag=funny&rating=r`;

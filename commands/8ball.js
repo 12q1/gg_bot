@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: '8ball',
-    description: '8ball',
+    description: 'Gets a magic 8-ball outcome.',
     execute(message, args) {
         const outcomes = [
             "Without a doubt",

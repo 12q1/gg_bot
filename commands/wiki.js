@@ -3,7 +3,7 @@ const superagent = require('superagent');
 
 module.exports = {
     name: 'wiki',
-    description: 'Wiki',
+    description: 'Gets a Wikipedia article based on search keywords.',
     execute(message, args) {
         if (!args.length) {
             return message.channel.send(`You didn't provide any search keywords ${message.author}!`);

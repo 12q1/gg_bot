@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'bible',
-    description: 'Bible',
+    description: 'Gets a random bible verse.',
     execute(message, args) {
         superagent
             .get('https://labs.bible.org/api/?passage=random')

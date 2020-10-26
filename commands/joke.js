@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'joke',
-    description: 'Joke',
+    description: 'Gets a random dad joke.',
     execute(message, args) {
         superagent
             .get('https://icanhazdadjoke.com/')

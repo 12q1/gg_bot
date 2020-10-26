@@ -5,7 +5,7 @@ const omdbkey = process.env.OMDBKEY;
 
 module.exports = {
     name: 'imdb',
-    description: 'imdb',
+    description: 'Searches for movie info.',
     aliases: ['movie'],
     execute(message, args) {
         if (!args.length) {

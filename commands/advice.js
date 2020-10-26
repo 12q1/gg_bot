@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'advice',
-    description: 'Advice',
+    description: 'Get a random piece of advice.',
     execute(message, args) {
         superagent
             .get('https://api.adviceslip.com/advice')

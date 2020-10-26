@@ -1,6 +1,6 @@
 module.exports = {
     name: 'diceroll',
-    description: 'Dice Roll',
+    description: 'Rolls the dice.',
     aliases: ['dice'],
     execute(message, args) {
         const outcomes = [
