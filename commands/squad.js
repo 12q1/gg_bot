@@ -1,4 +1,5 @@
 require('dotenv').config();
+const {battleMetrics} = require('../config.json')
 const Discord = require('discord.js');
 const superagent = require('superagent');
 const battleMetricsToken = process.env.BATTLEMETRICSTOKEN
@@ -24,12 +25,7 @@ module.exports = {
                 .catch(error => console.log(error))
         }
         else { //else we lookup the player on battlemetrics
-            const playerIDs = {
-                disannul: 726009583,
-                nato187: 142228847,
-                graybox: 910950113,
-                maddog: 726010844
-            }
+            const playerIDs = battleMetrics.playerIDs
             superagent
                 .get(`https://api.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}/relationships/sessions`)
                 .set('Authorization', `Bearer ${battleMetricsToken}`)

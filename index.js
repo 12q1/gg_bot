@@ -1,5 +1,8 @@
 require('dotenv').config();
-//API keys and tokens are stored in the .env file
+const { prefix } = require('./config.json');
+const token = process.env.TOKEN;
+//API keys and tokens are stored in the .env file use .env.example if you are setting up your own instance of this bot
+//Settings stored in config.json at root directory
 
 //refactor notes:
 //TODO switch from message.channel.send to embedded
@@ -10,16 +13,13 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 //dynamically load commands from commands directory
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
-
-const prefix = "!";
-const token = process.env.TOKEN;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -33,7 +33,7 @@ client.on('message', message => {
 
     const command = client.commands.get(commandName)
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    
+
     if (!command) return;
 
     try {
