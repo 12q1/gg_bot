@@ -1,8 +1,8 @@
-require('dotenv').config();
 const { primaryColor } = require('../config.json')
 const Discord = require('discord.js');
-const superagent = require('superagent');
-const omdbkey = process.env.OMDBKEY;
+const { omdbFetch } = require('../apicalls/omdb');
+const { tasteDiveFetch } = require('../apicalls/tastedive');
+const { trailerAddictFetch } = require('../apicalls/traileraddict');
 
 module.exports = {
     name: 'imdb',
@@ -13,27 +13,31 @@ module.exports = {
             message.channel.send("You didn't provide any arguments")
         }
         else {
-            const url = `http://www.omdbapi.com/?t=${args.join("+")}&apikey=${omdbkey}`;
-            superagent
-                .get(url)
+            Promise
+                .all([
+                    omdbFetch(args.join("+")),
+                    tasteDiveFetch(args.join("+")),
+                    //trailerAddictFetch(args.join("-"))
+                ])
                 .then(res => {
-                    if (res.body.Response === 'True') {
-                        const imdbEmbed = new Discord.MessageEmbed()
-                            .setColor(primaryColor)
-                            .setTitle(`${res.body.Title} (${res.body.Year})`)
-                            .setImage(res.body.Poster)
-                            .setDescription(res.body.Plot)
-                            .setURL(`https://www.imdb.com/title/${res.body.imdbID}`)
-                            .addFields(
-                                { name: 'Metascore:', value: res.body.Metascore, inline: true },
-                                { name: 'IMDB Rating:', value: res.body.imdbRating, inline: true },
-                                { name: 'Rotten Tomatoes:', value: res.body.Ratings[1].Value, inline: true },
-                            )
-                        message.channel.send(imdbEmbed)
-                    }
-                    else {
-                        message.channel.send("I couldn't find that movie")
-                    }
+                    console.log(res[2])
+                    const omdbData = res[0]
+                    const tasteDiveData = res[1]
+                    if(res[0].Response === 'False') return message.channel.send("I couldn't find that movie")
+                    const imdbEmbed = new Discord.MessageEmbed()
+                        .setColor(primaryColor)
+                        .setTitle(`${omdbData.Title} (${omdbData.Year})`)
+                        .setDescription(omdbData.Plot)
+                        .setURL(`https://www.imdb.com/title/${omdbData.imdbID}`)
+                        .setThumbnail(omdbData.Poster)
+                        .addFields(
+                            { name: 'Metascore:', value: omdbData.Metascore, inline: true },
+                            { name: 'IMDB Rating:', value: omdbData.imdbRating, inline: true },
+                            { name: 'Rotten Tomatoes:', value: omdbData.Ratings[1].Value, inline: true },
+                            { name: 'Similar Movies:', value: tasteDiveData.map(suggestion => suggestion.Name).join(',\n')},
+                        )
+                        .setFooter('This information was collected from OMDB and TasteDive')
+                    message.channel.send(imdbEmbed)
                 })
                 .catch(error => console.log(error))
         }
