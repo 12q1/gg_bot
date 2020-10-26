@@ -9,11 +9,10 @@ module.exports = {
     cooldown: 5,
     execute(message, args) {
         const { commands } = message.client;
-
         if (!args.length) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor(primaryColor)
-                .setTitle('Commands')
+                .setTitle('Available Commands')
 
             commands.map(command => {
                 helpEmbed.addFields({name: prefix + command.name, value: command.description})

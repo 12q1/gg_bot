@@ -35,7 +35,7 @@ module.exports = {
                             { name: 'Rotten Tomatoes:', value: omdbData.Ratings[1].Value, inline: true },
                             { name: 'Similar Movies:', value: tasteDiveData.map(suggestion => suggestion.Name).join(',\n')},
                         )
-                        .setFooter('This information was collected from OMDB and TasteDive')
+                        .setFooter('Powered by OMDB & TasteDive')
                     message.channel.send(imdbEmbed)
                 })
                 .catch(error => console.log(error))
