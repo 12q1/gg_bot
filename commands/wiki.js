@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const superagent = require('superagent');
+const { wikipediaFetch } = require('../apicalls/wikipedia');
 const { primaryColor } = require('../config.json')
 
 module.exports = {
@@ -9,15 +9,13 @@ module.exports = {
         if (!args.length) {
             return message.channel.send(`You didn't provide any search keywords ${message.author}!`);
         }
-        superagent
-            .get(`https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrsearch=${args.join('%20')}&gsrlimit=1&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=3&exlimit=max&piprop=original`)
+        Promise
+            .all([wikipediaFetch(args.join('%20'))])
             .then(res => {
-                return JSON.parse(res.text)
-            })
-            .then(res => {
-                const data = Object.values(res.query.pages)[0]
+                const data = Object.values(res[0].query.pages)[0]
                 if (data.extract.includes(`may refer to:`)) {
-                    message.channel.send(`Your search terms were too vague ${message.author}`)
+                    message.channel.send(`Your search terms were too vague ${message.author} check https://en.wikipedia.org/wiki/${data.title.replace(' ', '%20')}`)
+                    //TODO handle this output better, looks messy
                 }
                 else {
                     const wikiEmbed = new Discord.MessageEmbed()
@@ -26,10 +24,11 @@ module.exports = {
                         .setURL(`https://en.wikipedia.org/wiki/${data.title.replace(' ', '%20')}`)
                         .setDescription(`${data.extract}..`)
 
-                    if (typeof(data.original) !== 'undefined') wikiEmbed.setImage(data.original.source)
+                    if (typeof (data.original) !== 'undefined') wikiEmbed.setImage(data.original.source)
                     //if response has an image then set the image
                     message.channel.send(wikiEmbed)
                 }
             })
+            .catch(error => console.log(error))
     },
 };
