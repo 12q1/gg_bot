@@ -1,23 +1,19 @@
-require('dotenv').config();
 const { battleMetrics, primaryColor } = require('../config.json')
 const Discord = require('discord.js');
-const superagent = require('superagent');
-const battleMetricsToken = process.env.BATTLEMETRICSTOKEN
 const { convertMS } = require('../utils/time.js');
+const { battlemetricsFetch } = require('../apicalls/battlemetrics');
 
 module.exports = {
     name: 'squad',
     description: 'Gets a list of Squad servers or searches for player info.',
     execute(message, args) {
         if (!args.length) { //if there are no arguments we return a list of populated servers 3000km from Amsterdam
-            superagent
-                .get('https://api.battlemetrics.com/servers?filter[game]=squad&filter[players][min]=50&location=52.3676%2C4.9041&filter[maxDistance]=3000&sort=rank&page[size]=20')
+            Promise.all([battlemetricsFetch.serverList('squad')])
                 .then(res => {
                     const serverListEmbed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle('Squad Server List:')
-
-                    res.body.data.map(server => {
+                    res[0].map(server => {
                         serverListEmbed.addFields({ name: `${server.attributes.name}`, value: `(${server.attributes.players}/${server.attributes.maxPlayers}) - Hosted in [${server.attributes.country}]` })
                     })
                     message.channel.send(serverListEmbed)
@@ -25,24 +21,31 @@ module.exports = {
                 .catch(error => console.log(error))
         }
         else { //else we lookup the player on battlemetrics
+            const playerName = args[0].toLowerCase();
             const playerIDs = battleMetrics.playerIDs
-            superagent
-                .get(`https://api.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}/relationships/sessions`)
-                .set('Authorization', `Bearer ${battleMetricsToken}`)
+            if (!Object.keys(playerIDs).includes(playerName)) return message.channel.send("I couldn't find that player, have you set their battlemetrics ID in ./config.json?")
+            //checks if playerID object has the player in its data (pulled from ./config.json)
+
+            const playerEmbed = new Discord.MessageEmbed()
+                .setColor(primaryColor)
+                .setTitle(playerName.charAt(0).toUpperCase() + args[0].slice(1))
+
+            Promise
+                .all([battlemetricsFetch.playerSessions(playerIDs[playerName])])
                 .then(res => {
-                    const lastSeen = convertMS(Date.now() - Date.parse(res.body.data[0].attributes.stop))
-                    //need a second API call to retreive server name from server ID
-                    superagent
-                        .get(`https://api.battlemetrics.com/servers/${res.body.data[0].relationships.server.data.id}`)
+                    if (res[0][0].attributes.stop !== null) {
+                        const lastSeen = convertMS(Date.now() - Date.parse(res[0][0].attributes.stop))
+                        playerEmbed.addFields({ name: 'Last Seen:', value: `${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago` })
+                    }
+                    else {
+                        playerEmbed.setDescription('Currently online')
+                    }
+                    //need a second API call to retriver server name from serverID
+                    const serverID = res[0][0].relationships.server.data.id
+                    Promise
+                        .all([battlemetricsFetch.server(serverID)])
                         .then(response => {
-                            const playerEmbed = new Discord.MessageEmbed()
-                                .setColor(primaryColor)
-                                .setTitle(`${args[0].charAt(0).toUpperCase() + args[0].slice(1)}`)
-                                .setURL(`https://www.battlemetrics.com/players/${playerIDs[args[0].toLowerCase()]}`)
-                                .addFields(
-                                    { name: 'Last Seen:', value: `${lastSeen.day} days, ${lastSeen.hour} hours, ${lastSeen.minute} minutes ago` },
-                                    { name: 'Server:', value: `${response.body.data.attributes.name}` }
-                                )
+                            playerEmbed.addFields({name: 'Server', value: `${response[0].attributes.name}`})
                             message.channel.send(playerEmbed)
                         })
                         .catch(error => console.log(error))

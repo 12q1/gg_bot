@@ -1,5 +1,9 @@
 {
     "prefix": "!",
+    "location": {
+        "latitude": "52.3676",
+        "longitude": "4.9041"
+    },
     "primaryColor" : "#0099ff",
     "battleMetrics": {
         "playerIDs": {
