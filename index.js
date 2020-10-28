@@ -35,7 +35,7 @@ client.on('message', message => {
     if (!command) return;
 
     //special case for judge0 commands, args should not be treated as an array
-    if(command.name === "js"){
+    if(command.name === "js" || command.name === 'bash' || command.name === 'python'){
         args = message.content.slice(prefix.length+command.name.length+1).replace(/```/g, "")
     }
 

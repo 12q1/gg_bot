@@ -3,16 +3,16 @@ const { judge0Fetch } = require('../apicalls/judge0');
 const { primaryColor } = require('../config.json');
 
 module.exports = {
-    name: 'js',
-    description: 'Run some JavaScript code.',
-    usage: "!js ''' <your code goes here> '''",
+    name: 'bash',
+    description: 'Run some Bash code.',
+    usage: "!bash ''' <your code goes here> '''",
     execute(message, args) {
         const codeEmbed = new Discord.MessageEmbed()
             .setColor(primaryColor)
             .setTitle('Program Output')
             .setFooter('Powered by Judge0 & RapidAPI')
         Promise
-            .all([judge0Fetch.createSubmission(63, args, "")])
+            .all([judge0Fetch.createSubmission(46, args, "")])
             .then(res => {
                 setTimeout(() => {
                     if(!res[0].token) return message.channe.send(`${message.author} something went wrong, please check the format of your code`)
