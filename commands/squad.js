@@ -13,6 +13,7 @@ module.exports = {
                     const serverListEmbed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle('Squad Server List:')
+                        .setFooter('Powered by Battlemetrics')
                     res[0].map(server => {
                         serverListEmbed.addFields({ name: `${server.attributes.name}`, value: `(${server.attributes.players}/${server.attributes.maxPlayers}) - Hosted in [${server.attributes.country}]` })
                     })
@@ -29,6 +30,7 @@ module.exports = {
             const playerEmbed = new Discord.MessageEmbed()
                 .setColor(primaryColor)
                 .setTitle(playerName.charAt(0).toUpperCase() + args[0].slice(1))
+                .setFooter('Powered by Battlemetrics')
 
             Promise
                 .all([battlemetricsFetch.playerSessions(playerIDs[playerName])])

@@ -14,6 +14,7 @@ module.exports = {
                 const suggestEmbded = new Discord.MessageEmbed()
                     .setColor(primaryColor)
                     .setTitle('Suggestions:')
+                    .setFooter('Powered by TasteDive')
                 res[0].map(media => {
                     let resultString = '';
                     if (media.wUrl !== null) resultString += `[Wiki](${media.wUrl}) `
