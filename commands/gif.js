@@ -17,7 +17,6 @@ module.exports = {
             Promise
                 .all([giphyFetch.search(args.join(' '))])
                 .then(res => {
-                    console.log(res)
                     const randomDataIndex = Math.floor(Math.random() * res[0].length)
                     message.channel.send(res[0][randomDataIndex].url)
                 })

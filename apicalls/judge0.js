@@ -10,9 +10,6 @@ const judge0Fetch = {
             .then(res => res.body)
             .catch(error => console.log(error))
     },
-    getStatus: token => {
-
-    },
     getSubmission: token => {
         return superagent
             .get(`https://judge0.p.rapidapi.com/submissions/${token}`)
