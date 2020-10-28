@@ -5,11 +5,12 @@ const { primaryColor } = require('../config.json');
 module.exports = {
     name: 'js',
     description: 'Run some JavaScript code.',
-    usage: '!js \`\`\` [Your code goes here] \`\`\`',
+    usage: "!js ''' <your code goes here> '''",
     execute(message, args) {
         const codeEmbed = new Discord.MessageEmbed()
             .setColor(primaryColor)
             .setTitle('Program Output')
+            .setFooter('Powered by Judge0 & RapidAPI')
         Promise
             .all([judge0Fetch.createSubmission(63, args, "")])
             .then(res => {

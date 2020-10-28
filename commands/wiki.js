@@ -5,6 +5,7 @@ const { primaryColor } = require('../config.json')
 module.exports = {
     name: 'wiki',
     description: 'Gets a Wikipedia article based on search keywords.',
+    usage: "!wiki <search keywords>",
     execute(message, args) {
         if (!args.length) {
             return message.channel.send(`You didn't provide any search keywords ${message.author}!`);

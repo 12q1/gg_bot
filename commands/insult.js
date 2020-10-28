@@ -6,6 +6,7 @@ const { insultFetch } = require('../apicalls/insult');
 module.exports = {
     name: 'insult',
     description: 'Gets a randomly generated insult or returns an insult based on keywords.',
+    usage: "!insult || !insult <victim's name>",
     execute(message, args) {
         Promise
             .all([insultFetch(args.join('+'))])

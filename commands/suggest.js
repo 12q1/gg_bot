@@ -4,7 +4,8 @@ const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'suggest',
-    description: 'Recommends similar media based on search terms.',
+    description: 'Recommends similar media based on search keywords.',
+    usage: "!suggest <some movie, band, book, etc>",
     execute(message, args) {
         if (!args.length) return message.channel.send(`You didn't provide any search keywords ${message.author}!`);
         Promise

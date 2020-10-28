@@ -8,6 +8,7 @@ module.exports = {
     name: 'imdb',
     description: 'Searches for movie info.',
     aliases: ['movie'],
+    usage: "!imdb <search keywords>",
     execute(message, args) {
         if (!args.length) {
             message.channel.send("You didn't provide any arguments")

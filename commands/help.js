@@ -3,9 +3,8 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'help',
-    description: 'List all of commands and info.',
+    description: 'List all of commands and usage info.',
     aliases: ['commands'],
-    usage: '[command name]',
     cooldown: 5,
     execute(message, args) {
         const { commands } = message.client;
@@ -15,7 +14,9 @@ module.exports = {
                 .setTitle('Available Commands')
 
             commands.map(command => {
-                helpEmbed.addFields({name: prefix + command.name, value: command.description})
+                let explainString = command.description
+                if(command.usage) explainString += `\n\`\`\` ${command.usage}\`\`\``
+                helpEmbed.addFields({name: prefix + command.name, value: explainString})
             })
             message.reply(helpEmbed)
         }

@@ -1,6 +1,7 @@
 module.exports = {
     name: 'remind',
     description: 'Set a reminder for x minutes.',
+    usage: "!remind <minutes> <message>",
     execute(message, args) {
         if (!args.length) {
             message.channel.send("You didn't provide any arguments")

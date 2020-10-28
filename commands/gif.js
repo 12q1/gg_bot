@@ -5,6 +5,7 @@ const { giphyFetch } = require("../apicalls/giphy");
 module.exports = {
     name: 'gif',
     description: 'Gets a random gif or searches for a gif based on search keywords.',
+    usage: "!gif || !gif <search keywords>",
     execute(message, args) {
         if (!args.length) { //if there are no keywords then we just get a random gif
             Promise
