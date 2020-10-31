@@ -11,7 +11,7 @@ const giphyFetch = {
     },
     search : searchKeywords => {
         return superagent
-            .get(`https://api.giphy.com/v1/gifs/search?api_key=${giphykey}&q=${searchKeywords}`)
+            .get(`https://api.giphy.com/v1/gifs/search?api_key=${giphykey}&q=${searchKeywords}&rating=r`)
             .then(res => res.body.data)
             .catch(error => console.log(error))
     },

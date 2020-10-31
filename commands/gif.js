@@ -1,4 +1,5 @@
 const { giphyFetch } = require("../apicalls/giphy");
+const { tenorFetch } = require("../apicalls/tenor")
 
 //TODO attribute results to giphy as per their usage conditions
 
@@ -15,7 +16,7 @@ module.exports = {
         }
         else { //otherwise we use the giphy search
             Promise
-                .all([giphyFetch.search(args.join(' '))])
+                .all([tenorFetch.search(args.join(' '))])
                 .then(res => {
                     const randomDataIndex = Math.floor(Math.random() * res[0].length)
                     message.channel.send(res[0][randomDataIndex].url)
