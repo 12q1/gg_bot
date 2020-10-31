@@ -76,3 +76,19 @@ If you are interested in improving this bot feel free to fork it or send a pull 
 This project follows the MIT license. You may do as you please with it but for personal projects please consider giving credit to the original repository and for commercial purposes please contact me before deployment.
 
 MIT © 12q1
+
+# Examples:
+
+A small showcase of screenshots showing the embed styling and capabilities of this bot.
+
+![example](https://i.imgur.com/JXIpEOD.png)
+
+![example](https://i.imgur.com/SPzIPyT.png)
+
+![example](https://i.imgur.com/s927gKz.png)
+
+![example](https://i.imgur.com/RittJzT.png)
+
+![example](https://i.imgur.com/UJCQ3tD.png)
+
+
