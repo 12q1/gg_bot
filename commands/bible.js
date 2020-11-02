@@ -4,7 +4,7 @@ const { primaryColor } = require('../config.json')
 
 module.exports = {
     name: 'bible',
-    description: 'Gets a random bible verse.',
+    description: 'Gets a random Bible verse.',
     execute(message, args) {
         Promise
             .all([bibleFetch()])
