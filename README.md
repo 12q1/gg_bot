@@ -1,7 +1,7 @@
 # gg_bot
 GG-Bot is a private Discord bot for use among friends, it has a number of commands many of which pull data from public APIs such as OMDB, Wikipedia, TasteDive, BattleMetrics and more. It is also able to run simple Python3, bash and JavaScript code snippets. A detailed list of available commands can be found below.
 
-If you are an admin of a discord server and want to try the bot you can use this [link](https://discord.com/api/oauth2/authorize?client_id=767075691082153994&permissions=83968&scope=bot). 
+If you are an admin of a discord server and want to try the bot you can use this [link](https://discord.com/api/oauth2/authorize?client_id=767075691082153994&permissions=67648&scope=bot). 
 
 # Motivation:
 This project is primarily an exploration of the Discord.js library and its capabilities. Other goals of this project were to practice modularizing code, exploring several public APIs and testing the feasibility of running node.js on on Android.

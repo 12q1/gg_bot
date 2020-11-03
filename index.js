@@ -40,6 +40,7 @@ client.on('message', message => {
     }
 
     try {
+        message.react(':white_check_mark:')
         command.execute(message, args);
     } catch (error) {
         console.error(error);
