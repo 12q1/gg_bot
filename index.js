@@ -20,6 +20,9 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const Sequelize = require('sequelize');
 
+//local modules
+const { controlFlow } = require('./utils/dbControlFlow');
+
 //db models
 const { users, servers } = require('./dbObjects');
 
@@ -38,31 +41,12 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
+
+    //this section effectively checks all servers gg_bot is connected to and makes a database entry
     let serverList = client.guilds.cache.map(server => {
         return { serverID: server.id, serverName: server.name }
     })
-
-    //control flow to avoid overloading db with simultaneous queries
-    //based on Mixu's example http://book.mixu.net/node/ch7.html
-    //TODO separate this into its own module
-
-    const asyncDbQuery = (arg, callback) => {
-        console.log(`syncing ${arg.serverName} with local db`)
-        setTimeout(() => {
-            servers.findOrCreate({ where: { server_id: arg.serverID, name: arg.serverName } })
-            callback()
-        }, 1000)
-    }
-
-    const series = (item) => {
-        if (item) {
-            asyncDbQuery(item, () => {
-                return series(serverList.shift());
-            });
-        }
-    }
-
-    series(serverList.shift())
+    controlFlow(serverList)
 
     //TODO figure out how to pull user info
 
