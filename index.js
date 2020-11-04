@@ -6,8 +6,32 @@ const token = process.env.TOKEN;
 
 const fs = require('fs');
 
-//npm modules
+//yarn modules
 const Discord = require('discord.js');
+const Sequelize = require('sequelize');
+
+//db connection
+const sequelize = new Sequelize('database', 'user', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    storage: 'database.sqlite'
+})
+
+//models
+const Users = sequelize.define('users', {
+    user_id: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    balance: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
+}, {
+    timestamps: false,
+});
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -21,6 +45,9 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    //console.log(client.guilds.cache)
+    //syncing models
+    Users.sync()
 });
 
 client.on('message', message => {
@@ -35,8 +62,8 @@ client.on('message', message => {
     if (!command) return;
 
     //special case for judge0 commands, args should not be treated as an array
-    if(command.name === "js" || command.name === 'bash' || command.name === 'python'){
-        args = message.content.slice(prefix.length+command.name.length+1).replace(/```/g, "")
+    if (command.name === "js" || command.name === 'bash' || command.name === 'python') {
+        args = message.content.slice(prefix.length + command.name.length + 1).replace(/```/g, "")
     }
 
     try {
