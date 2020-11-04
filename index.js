@@ -55,8 +55,10 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    //console.log(client.guilds.cache)
-    //syncing models
+    serverList = client.guilds.cache.map(server => {
+        return { name: server.name, discordID: server.id }
+    })
+    console.log(serverList)
     Users.sync()
 });
 
