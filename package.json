@@ -3,10 +3,12 @@
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.6",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
     "superagent": "^6.1.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js"
   }
 }
