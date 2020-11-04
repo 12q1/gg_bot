@@ -20,30 +20,11 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const Sequelize = require('sequelize');
 
-//db connection
-const sequelize = new Sequelize('database', 'user', 'password', {
-    host: 'localhost',
-    dialect: 'sqlite',
-    logging: false,
-    storage: 'database.sqlite'
-})
-
-//models
-const Users = sequelize.define('users', {
-    user_id: {
-        type: Sequelize.STRING,
-        primaryKey: true,
-    },
-    balance: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    },
-}, {
-    timestamps: false,
-});
+//db models
+const { users, servers } = require('./dbObjects');
 
 const client = new Discord.Client();
+
 client.commands = new Discord.Collection();
 
 //dynamically load commands from commands directory
@@ -53,13 +34,60 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    serverList = client.guilds.cache.map(server => {
-        return { name: server.name, discordID: server.id }
+
+    let serverList = client.guilds.cache.map(server => {
+        return { serverID: server.id, serverName: server.name }
     })
-    console.log(serverList)
-    Users.sync()
+
+    //control flow to avoid overloading db with simultaneous queries
+    //based on Mixu's example http://book.mixu.net/node/ch7.html
+    //TODO separate this into its own module
+
+    const asyncDbQuery = (arg, callback) => {
+        console.log(`syncing ${arg.serverName} with local db`)
+        setTimeout(() => {
+            servers.findOrCreate({ where: { server_id: arg.serverID, name: arg.serverName } })
+            callback()
+        }, 1000)
+    }
+
+    const series = (item) => {
+        if (item) {
+            asyncDbQuery(item, () => {
+                return series(serverList.shift());
+            });
+        }
+    }
+
+    series(serverList.shift())
+
+    //TODO figure out how to pull user info
+
+    // const getServerList = async () => {
+    //     await client.guilds.cache.map(async server => {
+    //         await server.members.fetch()
+    //             .then(res => res.filter(x => x.user.bot === false))
+    //             .then(res => {
+    //                 return {
+    //                     serverID: server.id,
+    //                     serverName: server.name,
+    //                     users: res.map(x => x.user)
+    //                 }
+    //             })
+    //             .catch(console.error)
+    //     })
+    // }
+
+    // users.findOrCreate({
+    //     where: {
+    //         server_id: server.id,
+    //         user_id: user.id,
+    //         name: user.user.username
+    //     }
+    // })
 });
 
 client.on('message', message => {
