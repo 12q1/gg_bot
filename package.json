@@ -8,7 +8,7 @@
     "superagent": "^6.1.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js"
   }
 }

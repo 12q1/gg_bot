@@ -1,6 +1,16 @@
 require('dotenv').config();
 const { prefix } = require('./config.json');
-const token = process.env.TOKEN;
+
+//checks to see whether we're in dev or production environment
+let token;
+if (process.env.NODE_ENV) {
+    token = process.env.GG_BOT_TOKEN;
+}
+else {
+    console.log('You are in development mode')
+    token = process.env.GG_BOT_TEST_TOKEN;
+}
+
 //API keys and tokens are stored in the .env file use .env.example if you are setting up your own instance of this bot
 //Settings stored in config.json at root directory
 
