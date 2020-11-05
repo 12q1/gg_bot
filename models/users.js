@@ -4,6 +4,6 @@ module.exports = (sequelize, DataTypes) => {
         user_id: DataTypes.STRING,
         name: DataTypes.STRING,
 	}, {
-		timestamps: true,
+		timestamps: false,
 	});
 };

@@ -43,7 +43,7 @@ client.on('ready', () => {
 
     //this section checks all servers & users gg_bot is connected to and makes a database entry
 
-    const serverInfo = () => {
+    const clientInfo = () => {
         return client.guilds.cache.map(async server => {
             return result = {
                 serverID: server.id,
@@ -53,8 +53,26 @@ client.on('ready', () => {
         })
     }
 
-    Promise.all([...serverInfo()])
-        .then(console.log)
+    Promise.all([...clientInfo()])
+        .then(res => {
+            let userDetails = [];
+            const serverDetails = res.map(server => {
+                server.users.map(x => x.user).filter(x => x.bot === false).map(user => {
+                    userObject = {
+                        serverID: server.serverID,
+                        userID: user.id,
+                        name: user.username
+                    }
+                    userDetails.push(userObject)
+                })
+                return {
+                    serverID: server.serverID,
+                    name: server.serverName
+                }
+            })
+            //pushes data to control flow to be sent to db sequentially
+            controlFlow(serverDetails.concat(userDetails))
+        })
 });
 
 client.on('message', message => {

@@ -7,26 +7,33 @@ const { users, servers } = require('../dbObjects');
 const controlFlow = (array) => {
     const asyncDbQuery = (arg, callback) => {
 
-        if (arg.serverID) {
-            console.log(`syncing ${arg.serverName} with local db`)
+        if (arg.userID) {
+            console.log(`syncing ${arg.name}'s user data`)
             setTimeout(() => {
-                servers.findOrCreate({ where: { 
-                    server_id: arg.serverID, 
-                    name: arg.serverName } 
-                })
+                users.findOrCreate(
+                    {
+                        where: {
+                            server_id: arg.serverID,
+                            user_id: arg.userID,
+                        },
+                        defaults: {
+                            name: arg.name
+                        }
+                    })
                 callback()
-            }, 2000)
+            }, 1000)
         }
         else {
-            console.log(`syncing ${arg.user.username}'s data`)
+            console.log(`syncing ${arg.name} with local db`)
             setTimeout(() => {
-                users.findOrCreate({where: {
-                    server_id: arg.guild.id,
-                    user_id: arg.user.id,
-                    name: arg.user.username
-                }})
+                servers.findOrCreate({
+                    where: {
+                        server_id: arg.serverID,
+                        name: arg.name
+                    }
+                })
                 callback()
-            }, 2000)
+            }, 1000)
         }
     }
 
