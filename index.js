@@ -41,37 +41,20 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
+    //this section checks all servers & users gg_bot is connected to and makes a database entry
 
-    //this section effectively checks all servers gg_bot is connected to and makes a database entry
-    let serverList = client.guilds.cache.map(server => {
-        return { serverID: server.id, serverName: server.name }
-    })
-    controlFlow(serverList)
+    const serverInfo = () => {
+        return client.guilds.cache.map(async server => {
+            return result = {
+                serverID: server.id,
+                serverName: server.name,
+                users: await server.members.fetch()
+            }
+        })
+    }
 
-    //TODO figure out how to pull user info
-
-    // const getServerList = async () => {
-    //     await client.guilds.cache.map(async server => {
-    //         await server.members.fetch()
-    //             .then(res => res.filter(x => x.user.bot === false))
-    //             .then(res => {
-    //                 return {
-    //                     serverID: server.id,
-    //                     serverName: server.name,
-    //                     users: res.map(x => x.user)
-    //                 }
-    //             })
-    //             .catch(console.error)
-    //     })
-    // }
-
-    // users.findOrCreate({
-    //     where: {
-    //         server_id: server.id,
-    //         user_id: user.id,
-    //         name: user.user.username
-    //     }
-    // })
+    Promise.all([...serverInfo()])
+        .then(console.log)
 });
 
 client.on('message', message => {
