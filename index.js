@@ -42,7 +42,6 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
     //this section checks all servers & users gg_bot is connected to and makes a database entry
-
     const clientInfo = () => {
         return client.guilds.cache.map(async server => {
             return result = {
