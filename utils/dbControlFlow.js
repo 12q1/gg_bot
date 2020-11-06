@@ -17,7 +17,8 @@ const controlFlow = (array) => {
                             user_id: arg.userID,
                         },
                         defaults: {
-                            name: arg.name
+                            name: arg.name,
+                            balance: 100
                         }
                     })
                 callback()
