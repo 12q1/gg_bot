@@ -20,6 +20,9 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const Sequelize = require('sequelize');
 
+//local modules
+const { controlFlow } = require('./utils/dbControlFlow');
+
 //db models
 const { users, servers } = require('./dbObjects');
 
@@ -38,56 +41,37 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
-    let serverList = client.guilds.cache.map(server => {
-        return { serverID: server.id, serverName: server.name }
-    })
-
-    //control flow to avoid overloading db with simultaneous queries
-    //based on Mixu's example http://book.mixu.net/node/ch7.html
-    //TODO separate this into its own module
-
-    const asyncDbQuery = (arg, callback) => {
-        console.log(`syncing ${arg.serverName} with local db`)
-        setTimeout(() => {
-            servers.findOrCreate({ where: { server_id: arg.serverID, name: arg.serverName } })
-            callback()
-        }, 1000)
+    //this section checks all servers & users gg_bot is connected to and makes a database entry
+    const clientInfo = () => {
+        return client.guilds.cache.map(async server => {
+            return result = {
+                serverID: server.id,
+                serverName: server.name,
+                users: await server.members.fetch()
+            }
+        })
     }
 
-    const series = (item) => {
-        if (item) {
-            asyncDbQuery(item, () => {
-                return series(serverList.shift());
-            });
-        }
-    }
-
-    series(serverList.shift())
-
-    //TODO figure out how to pull user info
-
-    // const getServerList = async () => {
-    //     await client.guilds.cache.map(async server => {
-    //         await server.members.fetch()
-    //             .then(res => res.filter(x => x.user.bot === false))
-    //             .then(res => {
-    //                 return {
-    //                     serverID: server.id,
-    //                     serverName: server.name,
-    //                     users: res.map(x => x.user)
-    //                 }
-    //             })
-    //             .catch(console.error)
-    //     })
-    // }
-
-    // users.findOrCreate({
-    //     where: {
-    //         server_id: server.id,
-    //         user_id: user.id,
-    //         name: user.user.username
-    //     }
-    // })
+    Promise.all([...clientInfo()])
+        .then(res => {
+            let userDetails = [];
+            const serverDetails = res.map(server => {
+                server.users.map(x => x.user).filter(x => x.bot === false).map(user => {
+                    userObject = {
+                        serverID: server.serverID,
+                        userID: user.id,
+                        name: user.username
+                    }
+                    userDetails.push(userObject)
+                })
+                return {
+                    serverID: server.serverID,
+                    name: server.serverName
+                }
+            })
+            //pushes data to control flow to be sent to db sequentially
+            controlFlow(serverDetails.concat(userDetails))
+        })
 });
 
 client.on('message', message => {

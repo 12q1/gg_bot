@@ -8,6 +8,7 @@ module.exports = {
     description: 'Gets a randomly generated insult or returns an insult based on keywords.',
     usage: "!insult || !insult <victim's name>",
     execute(message, args) {
+        //console.log(args)
         Promise
             .all([insultFetch(args.join('+'))])
             .then(res => {
