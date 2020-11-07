@@ -10,8 +10,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     storage: 'database.sqlite'
 })
 
-require('./models/servers')(sequelize, Sequelize.DataTypes);
-require('./models/users')(sequelize, Sequelize.DataTypes);
+require('../models/servers')(sequelize, Sequelize.DataTypes);
+require('../models/users')(sequelize, Sequelize.DataTypes);
 
 const force = process.argv.includes('--force') || process.argv.includes('-f')
 

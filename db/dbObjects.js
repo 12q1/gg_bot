@@ -7,8 +7,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     storage: 'database.sqlite',
 });
 
-const users = require('./models/users')(sequelize, Sequelize.DataTypes);
-const servers = require('./models/servers')(sequelize, Sequelize.DataTypes);
+const users = require('../models/users')(sequelize, Sequelize.DataTypes);
+const servers = require('../models/servers')(sequelize, Sequelize.DataTypes);
 
 users.belongsTo(servers, { foreignKey: 'user_id', as: 'user' });
 

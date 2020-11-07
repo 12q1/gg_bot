@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { primaryColor } = require('../config.json');
-const { users, servers } = require('../dbObjects');
+const { users, servers } = require('../db/dbObjects');
 
 module.exports = {
     name: 'balance',

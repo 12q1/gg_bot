@@ -21,10 +21,10 @@ const Discord = require('discord.js');
 const Sequelize = require('sequelize');
 
 //local modules
-const { controlFlow } = require('./utils/dbControlFlow');
+const { controlFlow } = require('./db/dbControlFlow');
 
 //db models
-const { users, servers } = require('./dbObjects');
+const { users, servers } = require('./db/dbObjects');
 
 const client = new Discord.Client();
 
@@ -56,14 +56,16 @@ client.on('ready', () => {
         .then(res => {
             let userDetails = [];
             const serverDetails = res.map(server => {
-                server.users.map(x => x.user).filter(x => x.bot === false).map(user => {
-                    userObject = {
-                        serverID: server.serverID,
-                        userID: user.id,
-                        name: user.username
-                    }
-                    userDetails.push(userObject)
-                })
+                server.users.map(x => x.user)
+                    //.filter(x => x.bot === false)
+                    .map(user => {
+                        userObject = {
+                            serverID: server.serverID,
+                            userID: user.id,
+                            name: user.username
+                        }
+                        userDetails.push(userObject)
+                    })
                 return {
                     serverID: server.serverID,
                     name: server.serverName

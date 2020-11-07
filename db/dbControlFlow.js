@@ -2,7 +2,7 @@
 //based on Mixu's example http://book.mixu.net/node/ch7.html
 //TODO handle both types of models (servers & users)
 
-const { users, servers } = require('../dbObjects');
+const { users, servers } = require('./dbObjects');
 
 const controlFlow = (array) => {
     const asyncDbQuery = (arg, callback) => {
