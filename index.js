@@ -93,7 +93,7 @@ client.on('message', message => {
     }
 
     try {
-        message.react('✅')
+        //message.react('✅')
         command.execute(message, args);
     } catch (error) {
         console.error(error);
