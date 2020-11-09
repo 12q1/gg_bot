@@ -7,6 +7,7 @@ module.exports = {
         if (!message.guild) return message.channel.send("This command only works on servers/guilds")
         if (!args) return message.channel.send("You didn't provide any arguments")
         const amount = parseInt(args[1])
+        //const serverID = '487725476157194242'
         const serverID = message.guild.id
         const userID = message.author.id
         const targetID = args[0].replace("<@!", "").replace(">", "")
@@ -23,16 +24,16 @@ module.exports = {
                 user_id: targetID
             }
         })
-        console.log(targetID)
+        console.log(amount, user)
+        if (amount > user.balance) return message.channel.send("You don't have enough money")
 
-        if (user.balance >= amount) {
-            await user.decrement(
-                'balance', { by: amount }
-            )
-            await target.increment(
-                'balance', { by: amount }
-            )
-            message.channel.send(`Successfully sent ${amount} monies`)
-        }
+        console.log('processing payment')
+        await user.decrement(
+            'balance', { by: amount }
+        )
+        await target.increment(
+            'balance', { by: amount }
+        )
+        message.channel.send(`Successfully sent ${amount} monies`)
     }
 }
