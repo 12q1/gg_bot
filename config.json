@@ -4,6 +4,10 @@
         "latitude": "52.3676",
         "longitude": "4.9041"
     },
+    "economy": {
+        "currencyName" : "Goin",
+        "currencySymbol": "gg"
+    },
     "primaryColor" : "#0099ff",
     "battleMetrics": {
         "playerIDs": {

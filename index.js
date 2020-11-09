@@ -57,7 +57,7 @@ client.on('ready', () => {
             let userDetails = [];
             const serverDetails = res.map(server => {
                 server.users.map(x => x.user)
-                    //.filter(x => x.bot === false)
+                    .filter(x => x.bot === false)
                     .map(user => {
                         userObject = {
                             serverID: server.serverID,

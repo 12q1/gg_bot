@@ -1,6 +1,12 @@
 const Discord = require('discord.js');
-const { primaryColor } = require('../config.json');
-const { users, servers } = require('../db/dbObjects');
+const { primaryColor, economy } = require('../config.json');
+const { users } = require('../db/dbObjects');
+
+
+const GraphemeSplitter = require('grapheme-splitter')
+splitter = new GraphemeSplitter()
+//used to handle special characters that may register as more than 1 character
+//https://github.com/orling/grapheme-splitter
 
 module.exports = {
     name: 'balance',
@@ -17,13 +23,12 @@ module.exports = {
                 res
                     .sort((a, b) => a.dataValues.name.localeCompare(b.dataValues.name)) //sorts alphabetically by username
                     .map(user => {
-                        const numberOfHyphens = 25 - user.dataValues.name.length - user.dataValues.balance.toString().length
-                        descriptionString += `${user.dataValues.name} ${"―".repeat(numberOfHyphens)} ${user.dataValues.balance}\n`
+                        const numberOfHyphens = 25 - splitter.countGraphemes(user.dataValues.name) - user.dataValues.balance.toString().length
+                        descriptionString += `${user.dataValues.name} ${"―".repeat(numberOfHyphens)} ${user.dataValues.balance} ${economy.currencySymbol}\n`
                     })
                 descriptionString += "\`\`\`"//close it off with codeblock for monospace
                 balanceEmbed.setDescription(descriptionString)
                 message.channel.send(balanceEmbed)
             })
-            .then(console.log)
     }
 }
