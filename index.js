@@ -101,4 +101,12 @@ client.on('message', message => {
     }
 });
 
+client.on('presenceUpdate', (oldPresence, newPresence) => {
+    console.log(oldPresence, newPresence)
+})
+
+client.on('voiceStateUpdate', (oldState, newState) => {
+    console.log(oldState, newState)
+})
+
 client.login(token);
