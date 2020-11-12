@@ -102,11 +102,11 @@ client.on('message', message => {
 });
 
 client.on('presenceUpdate', (oldPresence, newPresence) => {
-    console.log(oldPresence, newPresence)
+    console.log(newPresence.guild)
 })
 
 client.on('voiceStateUpdate', (oldState, newState) => {
-    console.log(oldState, newState)
+    console.log(newState);
 })
 
 client.login(token);
